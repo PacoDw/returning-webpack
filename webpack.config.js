@@ -1,22 +1,32 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
   entry: {
-    app: './src/index.js',
-    print: './src/print.js'
+    app: './src/index.js'
   },
   devtool: 'inline-source-map', // It detects any error and shows you exactly the file where it occurred
   devServer: {
-    contentBase: './dist' // webpack-dev-serve package provides you with a simple web server and the ability to use live reloading
+    contentBase: './dist', // webpack-dev-serve package provides you with a simple web server and the ability to use live reloading
+    hot: true
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({        // It create a html in memory and add all of scritp to run 
       title: 'Output Management!'
     }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   output: {
     filename: '[name].bundle.js',
