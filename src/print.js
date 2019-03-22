@@ -1,3 +1,4 @@
 export default function printMe() {
-  console.log("I get called from print.js!")
+  // the error show you in the mavegator console 
+  cosnole.log('I get called from print.js!');
 }
